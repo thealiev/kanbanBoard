@@ -14,7 +14,7 @@ import Editable from "../../Editabled/Editable";
 
 import "./CardInfo.css";
 
-function CardInfo(props) {
+function CardInfo({ card, updateCard, boardId, onClose }) {
   const colors = [
     "#a8193d",
     "#4fcc25",
@@ -26,9 +26,7 @@ function CardInfo(props) {
   ];
 
   const [selectedColor, setSelectedColor] = useState();
-  const [values, setValues] = useState({
-    ...props.card,
-  });
+  const [values, setValues] = useState({ ...card });
 
   const updateTitle = (value) => {
     setValues({ ...values, title: value });
@@ -110,11 +108,11 @@ function CardInfo(props) {
   };
 
   useEffect(() => {
-    if (props.updateCard) props.updateCard(props.boardId, values.id, values);
-  }, [values]);
+    if (updateCard) updateCard(boardId, values.id, values);
+  }, [updateCard, boardId, values]);
 
   return (
-    <Modal onClose={props.onClose}>
+    <Modal onClose={onClose}>
       <div className="cardinfo">
         <div className="cardinfo_box">
           <div className="cardinfo_box_title">
